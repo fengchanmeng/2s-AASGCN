@@ -1,0 +1,39 @@
+work_dir: ./work_dir/ntu120/xset/agcn_joint
+model_saved_name: ./runs/ntu120_cv_agcn_joint
+# feeder
+feeder: feeders.feeder.Feeder
+train_feeder_args:
+  data_path: /home/s17xyp/PycharmProjects/2s-AGCN-master/data/ntu120/xset/train_data_joint.npy
+  label_path: /home/s17xyp/PycharmProjects/2s-AGCN-master/data/ntu120/xset/train_label.pkl
+  debug: False
+  random_choose: False
+  random_shift: False
+  random_move: False
+  window_size: -1
+  normalization: False
+
+test_feeder_args:
+  data_path: ./data/ntu120/xset/val_data_joint.npy
+  label_path: ./data/ntu120/xset/val_label.pkl
+
+# model
+model: model.agcn.Model
+model_args:
+  num_class: 120
+  num_point: 25
+  num_person: 2
+  graph: graph.ntu_rgb_d.NTUGraph
+  graph_args:
+    labeling_mode: 'parts'
+
+#optim
+weight_decay: 0.0001
+base_lr: 0.1
+step: [30, 50]
+
+# training
+device: [1]
+batch_size: 14
+test_batch_size: 14
+num_epoch: 50
+nesterov: True
